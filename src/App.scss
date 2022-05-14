@@ -1,0 +1,21 @@
+@import "../node_modules/bootstrap/scss/bootstrap.scss";
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+$primary_color: #ffff;
+$background_color: #333333;
+
+body{
+    background-color: $background_color;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    .signup_section{
+        background-color:$primary_color ;
+    }
+}
