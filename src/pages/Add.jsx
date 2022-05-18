@@ -52,7 +52,7 @@ export const Add = () => {
     //     <button className="btn btn-primary mt-4">Add User</button>
     //   </form>
     // </div>
-    <div className='d-flex justify-content-center align-items-center'>
+    <div className='d-flex justify-content-center align-items-center mt-5 py-5'>
     <div className="container">
         <div className="row">
             <div className="col">

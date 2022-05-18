@@ -6,22 +6,32 @@ export const Read = () => {
     
     const [documents , setDocuments] = useState([]);
     const [isLoading , setIsLoading] = useState(true);
+    
     useEffect(() => {
+
         let arr = [];
-      const collectionName = "users";
-      const docsCollectionRef = collection(firestore, collectionName);
-      const readDocs = async () => {
-         const readDoc = await getDocs(docsCollectionRef);
-         readDoc.forEach((e) => {
-              arr.push({...e.data() , id: e.id});
-         });
-         setDocuments(arr)
-         setIsLoading(false);
-      }
-      readDocs();
+
+    const collectionName = "users";
+    const docsCollectionRef = collection(firestore, collectionName);
+
+    const readDocs = async () => {
+
+        const readDoc = await getDocs(docsCollectionRef);
+        
+        readDoc.forEach((e) => {
+            arr.push({...e.data() , id: e.id});
+        });
+
+        setDocuments(arr)
+        setIsLoading(false);
+    }
+
+    readDocs();
+
     },[]);
-  return (<>
-    <div className='d-flex justify-content-center align-items-center min-vh-100'>
+
+return (<>
+    <div className='d-flex justify-content-center align-items-center'>
             <div className="container">
                 <div className="row">
                     <div className="col">
