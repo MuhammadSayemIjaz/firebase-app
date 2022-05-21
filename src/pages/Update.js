@@ -4,30 +4,34 @@ import { firestore } from "../config/firebase";
 
 export const Update = () => {
 
-    const [document , setDocument] = useState([]);
+    const [documents , setDocuments] = useState([]);
     const [isLoading , setIsLoading] = useState(true)
 
     const collectionName = "users";
     const docsCollectionRef = collection(firestore, collectionName);
 
-    const updateUser = async (userid) => {
-    console.log("user ID :" , userid);
+    const updateUser = async (user) => {
+
+    console.log("user :" , user);
+
     const newName = prompt("Enter New Name :");
     const newAge = Number(prompt("Enter New Age"));
 
     const updatedDoc = {name : newName , age : newAge}
 
-    const updateDocRef = doc(docsCollectionRef, userid.id);
+    const updateDocRef = doc(docsCollectionRef, user.id);
     await updateDoc(updateDocRef,updatedDoc);
-    
-    let newArray = document.filter((doc) => {
 
-        return userid = doc ;
+    let newArray = documents.map((doc) => {
+
+        if(doc.id === user.id)
+            return {...updatedDoc, id: user.id}
+        return doc
     });
 
-    setDocument(newArray);
-    console.log("New Array :", newArray);
-    console.log("document :" ,  document);
+    setDocuments(newArray);
+    console.log("New users :", newArray);
+    console.log("old users :" ,  documents);
 }
 useEffect(() => {
     let arr = [];
@@ -42,7 +46,7 @@ useEffect(() => {
             arr.push({...e.data() , id: e.id});
         });
     
-        setDocument(arr)
+        setDocuments(arr)
         setIsLoading(false);
         console.log(arr);
     }    
@@ -69,7 +73,7 @@ return (<>
                             </div>
                             : <>
                                 {
-                                    document.map((doc) => {
+                                    documents.map((doc) => {
                                         return <p key={doc.id} className="text-white text-center" onClick={() => updateUser(doc)}>FullName: {doc.name} || Age: {doc.age} || id : {doc.id}</p>
                                     })
                                 }
